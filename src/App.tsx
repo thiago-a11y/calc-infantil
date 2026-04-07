@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './CalculadoraInfantil.css';
 
 const CalculadoraInfantil = () => {
   const [numero1, setNumero1] = useState('');
