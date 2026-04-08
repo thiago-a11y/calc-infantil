@@ -1,1 +1,22 @@
-body { margin: 0; font-family: Inter, system-ui, sans-serif; }
+/* src/index.css */
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  line-height: 1.6; /* Adicionado para melhorar a legibilidade */
+  box-sizing: border-box; /* Adicionado para evitar problemas de tamanho */
+}
+
+* {
+  box-sizing: inherit; /* Herda o box-sizing do body */
+}
+
+/* Adicionado para melhorar a acessibilidade */
+html {
+  font-size: 100%; /* Define o tamanho da fonte para 100% do tamanho padrão */
+}
+
+/* Adicionado para melhorar a performance */
+img {
+  display: block; /* Evita que as imagens causem problemas de layout */
+  max-width: 100%; /* Evita que as imagens ultrapassam a largura do container */
+}
