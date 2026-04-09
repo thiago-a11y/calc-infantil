@@ -1,25 +1,25 @@
-Aqui está uma implementação básica da calculadora infantil com bichinhos utilizando React, JavaScript e CSS:
-
-**CalculadoraInfantil.js**
-```jsx
 import React, { useState } from 'react';
 import './CalculadoraInfantil.css';
 
-const CalculadoraInfantil = () => {
+interface CalculadoraInfantilProps {
+  // props
+}
+
+const CalculadoraInfantil: React.FC<CalculadoraInfantilProps> = () => {
   const [numero1, setNumero1] = useState('');
   const [numero2, setNumero2] = useState('');
   const [operacao, setOperacao] = useState('');
   const [resultado, setResultado] = useState('');
 
-  const handleNumero1Change = (e) => {
+  const handleNumero1Change = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNumero1(e.target.value);
   };
 
-  const handleNumero2Change = (e) => {
+  const handleNumero2Change = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNumero2(e.target.value);
   };
 
-  const handleOperacaoChange = (e) => {
+  const handleOperacaoChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setOperacao(e.target.value);
   };
 
@@ -37,7 +37,11 @@ const CalculadoraInfantil = () => {
           resultado = parseInt(numero1) * parseInt(numero2);
           break;
         case '/':
-          resultado = parseInt(numero1) / parseInt(numero2);
+          if (numero2 !== '0') {
+            resultado = parseInt(numero1) / parseInt(numero2);
+          } else {
+            resultado = 'Erro: divisão por zero';
+          }
           break;
         default:
           resultado = 'Operação inválida';
@@ -83,29 +87,3 @@ const CalculadoraInfantil = () => {
 };
 
 export default CalculadoraInfantil;
-```
-
-**CalculadoraInfantil.css**
-```css
-.calculadora-infantil {
-  width: 80%;
-  margin: 40px auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.bichinhos {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-
-.bichinhos img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-}
-
-.campo-numero1, .campo-numero2, .campo-operac
