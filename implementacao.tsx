@@ -10,13 +10,15 @@ const CalculadoraInfantil: React.FC<CalculadoraInfantilProps> = () => {
   const [numero2, setNumero2] = useState<number | null>(null);
   const [operacao, setOperacao] = useState<string>('');
   const [resultado, setResultado] = useState<string | null>(null);
+  const [erro, setErro] = useState<string | null>(null);
 
   const handleNumero1Change = (e: React.ChangeEvent<HTMLInputElement>) => {
     const valor = parseInt(e.target.value, 10);
     if (!isNaN(valor)) {
       setNumero1(valor);
+      setErro(null);
     } else {
-      setNumero1(null);
+      setErro('Valor inválido');
     }
   };
 
@@ -24,13 +26,15 @@ const CalculadoraInfantil: React.FC<CalculadoraInfantilProps> = () => {
     const valor = parseInt(e.target.value, 10);
     if (!isNaN(valor)) {
       setNumero2(valor);
+      setErro(null);
     } else {
-      setNumero2(null);
+      setErro('Valor inválido');
     }
   };
 
   const handleOperacaoChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setOperacao(e.target.value);
+    setErro(null);
   };
 
   const calcular = () => {
@@ -50,15 +54,18 @@ const CalculadoraInfantil: React.FC<CalculadoraInfantilProps> = () => {
           if (numero2 !== 0) {
             resultado = numero1 / numero2;
           } else {
-            resultado = 'Erro: divisão por zero';
+            setErro('Erro: divisão por zero');
+            return;
           }
           break;
         default:
-          resultado = 'Operação inválida';
+          setErro('Operação inválida');
+          return;
       }
       setResultado(resultado.toString());
+      setErro(null);
     } else {
-      setResultado('Preencha todos os campos');
+      setErro('Preencha todos os campos');
     }
   };
 
@@ -91,6 +98,7 @@ const CalculadoraInfantil: React.FC<CalculadoraInfantilProps> = () => {
       <div className="resultado">
         <label>Resultado:</label>
         <p>{resultado !== null ? resultado : ''}</p>
+        {erro !== null && <p style={{ color: 'red' }}>{erro}</p>}
       </div>
     </div>
   );
