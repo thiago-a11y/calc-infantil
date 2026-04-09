@@ -86,6 +86,16 @@ const CalculadoraInfantil = () => {
         return;
       }
 
+      if (num1 > Number.MAX_SAFE_INTEGER || num2 > Number.MAX_SAFE_INTEGER) {
+        setErro('Os números são muito grandes');
+        return;
+      }
+
+      if (num1 < Number.MIN_SAFE_INTEGER || num2 < Number.MIN_SAFE_INTEGER) {
+        setErro('Os números são muito pequenos');
+        return;
+      }
+
       let resultado;
       switch (operacao) {
         case '+':
