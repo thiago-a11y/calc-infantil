@@ -6,17 +6,27 @@ interface CalculadoraInfantilProps {
 }
 
 const CalculadoraInfantil: React.FC<CalculadoraInfantilProps> = () => {
-  const [numero1, setNumero1] = useState('');
-  const [numero2, setNumero2] = useState('');
-  const [operacao, setOperacao] = useState('');
-  const [resultado, setResultado] = useState('');
+  const [numero1, setNumero1] = useState<number | null>(null);
+  const [numero2, setNumero2] = useState<number | null>(null);
+  const [operacao, setOperacao] = useState<string>('');
+  const [resultado, setResultado] = useState<string | null>(null);
 
   const handleNumero1Change = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNumero1(e.target.value);
+    const valor = parseInt(e.target.value, 10);
+    if (!isNaN(valor)) {
+      setNumero1(valor);
+    } else {
+      setNumero1(null);
+    }
   };
 
   const handleNumero2Change = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNumero2(e.target.value);
+    const valor = parseInt(e.target.value, 10);
+    if (!isNaN(valor)) {
+      setNumero2(valor);
+    } else {
+      setNumero2(null);
+    }
   };
 
   const handleOperacaoChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -24,21 +34,21 @@ const CalculadoraInfantil: React.FC<CalculadoraInfantilProps> = () => {
   };
 
   const calcular = () => {
-    if (numero1 !== '' && numero2 !== '' && operacao !== '') {
+    if (numero1 !== null && numero2 !== null && operacao !== '') {
       let resultado;
       switch (operacao) {
         case '+':
-          resultado = parseInt(numero1) + parseInt(numero2);
+          resultado = numero1 + numero2;
           break;
         case '-':
-          resultado = parseInt(numero1) - parseInt(numero2);
+          resultado = numero1 - numero2;
           break;
         case '*':
-          resultado = parseInt(numero1) * parseInt(numero2);
+          resultado = numero1 * numero2;
           break;
         case '/':
-          if (numero2 !== '0') {
-            resultado = parseInt(numero1) / parseInt(numero2);
+          if (numero2 !== 0) {
+            resultado = numero1 / numero2;
           } else {
             resultado = 'Erro: divisão por zero';
           }
@@ -61,11 +71,11 @@ const CalculadoraInfantil: React.FC<CalculadoraInfantilProps> = () => {
       </div>
       <div className="campo-numero1">
         <label>Numero 1:</label>
-        <input type="number" value={numero1} onChange={handleNumero1Change} />
+        <input type="number" value={numero1 !== null ? numero1.toString() : ''} onChange={handleNumero1Change} />
       </div>
       <div className="campo-numero2">
         <label>Numero 2:</label>
-        <input type="number" value={numero2} onChange={handleNumero2Change} />
+        <input type="number" value={numero2 !== null ? numero2.toString() : ''} onChange={handleNumero2Change} />
       </div>
       <div className="campo-operacao">
         <label>Operação:</label>
@@ -80,7 +90,7 @@ const CalculadoraInfantil: React.FC<CalculadoraInfantilProps> = () => {
       <button onClick={calcular}>Calcular</button>
       <div className="resultado">
         <label>Resultado:</label>
-        <p>{resultado}</p>
+        <p>{resultado !== null ? resultado : ''}</p>
       </div>
     </div>
   );
