@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import './CalculadoraInfantil.css';
 
+/**
+ * Lista de operações suportadas pela calculadora.
+ * @typedef {Object} Operacao
+ * @property {string} value - Valor da operação (ex: '+', '-', '*', '/').
+ * @property {string} label - Label da operação (ex: 'Somar', 'Subtrair', 'Multiplicar', 'Dividir').
+ */
 const operacoes = [
   { value: '+', label: 'Somar' },
   { value: '-', label: 'Subtrair' },
@@ -8,25 +14,68 @@ const operacoes = [
   { value: '/', label: 'Dividir' },
 ];
 
+/**
+ * Componente CalculadoraInfantil.
+ * @returns {JSX.Element} Elemento JSX do componente.
+ */
 const CalculadoraInfantil = () => {
+  /**
+   * Estado do número 1.
+   * @type {string}
+   */
   const [numero1, setNumero1] = useState('');
+
+  /**
+   * Estado do número 2.
+   * @type {string}
+   */
   const [numero2, setNumero2] = useState('');
+
+  /**
+   * Estado da operação.
+   * @type {string}
+   */
   const [operacao, setOperacao] = useState('');
+
+  /**
+   * Estado do resultado.
+   * @type {string}
+   */
   const [resultado, setResultado] = useState('');
+
+  /**
+   * Estado do erro.
+   * @type {string}
+   */
   const [erro, setErro] = useState('');
 
+  /**
+   * Função de callback para lidar com a mudança do número 1.
+   * @param {React.ChangeEvent<HTMLInputElement>} e - Evento de mudança do input.
+   */
   const handleNumero1Change = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNumero1(e.target.value);
   };
 
+  /**
+   * Função de callback para lidar com a mudança do número 2.
+   * @param {React.ChangeEvent<HTMLInputElement>} e - Evento de mudança do input.
+   */
   const handleNumero2Change = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNumero2(e.target.value);
   };
 
+  /**
+   * Função de callback para lidar com a mudança da operação.
+   * @param {React.ChangeEvent<HTMLSelectElement>} e - Evento de mudança do select.
+   */
   const handleOperacaoChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setOperacao(e.target.value);
   };
 
+  /**
+   * Função para calcular o resultado da operação.
+   */
   const calcular = () => {
     try {
       const num1 = parseFloat(numero1);
