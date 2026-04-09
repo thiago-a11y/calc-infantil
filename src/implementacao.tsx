@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import './CalculadoraInfantil.css';
 
 const CalculadoraInfantil = () => {
@@ -7,19 +7,19 @@ const CalculadoraInfantil = () => {
   const [operacao, setOperacao] = useState('');
   const [resultado, setResultado] = useState('');
 
-  const handleNumero1Change = useCallback((e) => {
+  const handleNumero1Change = (e) => {
     setNumero1(e.target.value);
-  }, []);
+  };
 
-  const handleNumero2Change = useCallback((e) => {
+  const handleNumero2Change = (e) => {
     setNumero2(e.target.value);
-  }, []);
+  };
 
-  const handleOperacaoChange = useCallback((e) => {
+  const handleOperacaoChange = (e) => {
     setOperacao(e.target.value);
-  }, []);
+  };
 
-  const calcular = useCallback(() => {
+  const calcular = () => {
     if (numero1 !== '' && numero2 !== '' && operacao !== '') {
       let resultado;
       switch (operacao) {
@@ -33,11 +33,7 @@ const CalculadoraInfantil = () => {
           resultado = parseInt(numero1) * parseInt(numero2);
           break;
         case '/':
-          if (numero2 !== '0') {
-            resultado = parseInt(numero1) / parseInt(numero2);
-          } else {
-            resultado = 'Erro: Divisão por zero';
-          }
+          resultado = parseInt(numero1) / parseInt(numero2);
           break;
         default:
           resultado = 'Operação inválida';
@@ -46,7 +42,7 @@ const CalculadoraInfantil = () => {
     } else {
       setResultado('Preencha todos os campos');
     }
-  }, [numero1, numero2, operacao]);
+  };
 
   return (
     <div className="calculadora-infantil">
