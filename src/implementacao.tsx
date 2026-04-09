@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
 import './CalculadoraInfantil.css';
 
+const operacoes = [
+  { value: '+', label: 'Somar' },
+  { value: '-', label: 'Subtrair' },
+  { value: '*', label: 'Multiplicar' },
+  { value: '/', label: 'Dividir' },
+];
+
 const CalculadoraInfantil = () => {
   const [numero1, setNumero1] = useState('');
   const [numero2, setNumero2] = useState('');
@@ -8,15 +15,15 @@ const CalculadoraInfantil = () => {
   const [resultado, setResultado] = useState('');
   const [erro, setErro] = useState('');
 
-  const handleNumero1Change = (e) => {
+  const handleNumero1Change = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNumero1(e.target.value);
   };
 
-  const handleNumero2Change = (e) => {
+  const handleNumero2Change = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNumero2(e.target.value);
   };
 
-  const handleOperacaoChange = (e) => {
+  const handleOperacaoChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setOperacao(e.target.value);
   };
 
@@ -79,10 +86,11 @@ const CalculadoraInfantil = () => {
         <label>Operação:</label>
         <select value={operacao} onChange={handleOperacaoChange}>
           <option value="">Selecione uma operação</option>
-          <option value="+">Somar</option>
-          <option value="-">Subtrair</option>
-          <option value="*">Multiplicar</option>
-          <option value="/">Dividir</option>
+          {operacoes.map((op) => (
+            <option key={op.value} value={op.value}>
+              {op.label}
+            </option>
+          ))}
         </select>
       </div>
       <button onClick={calcular}>Calcular</button>
