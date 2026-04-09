@@ -1,9 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import './CalculadoraInfantil.css';
 
 interface CalculadoraInfantilProps {
   // props
 }
+
+const operacoes = [
+  { valor: '+', label: 'Somar' },
+  { valor: '-', label: 'Subtrair' },
+  { valor: '*', label: 'Multiplicar' },
+  { valor: '/', label: 'Dividir' },
+];
 
 const CalculadoraInfantil: React.FC<CalculadoraInfantilProps> = () => {
   const [numero1, setNumero1] = useState<number | null>(null);
@@ -69,6 +76,14 @@ const CalculadoraInfantil: React.FC<CalculadoraInfantilProps> = () => {
     }
   };
 
+  const opcoesOperacao = useMemo(() => {
+    return operacoes.map((op) => (
+      <option key={op.valor} value={op.valor}>
+        {op.label}
+      </option>
+    ));
+  }, []);
+
   return (
     <div className="calculadora-infantil">
       <h1>Calculadora Infantil</h1>
@@ -88,10 +103,7 @@ const CalculadoraInfantil: React.FC<CalculadoraInfantilProps> = () => {
         <label>Operação:</label>
         <select value={operacao} onChange={handleOperacaoChange}>
           <option value="">Selecione uma operação</option>
-          <option value="+">Somar</option>
-          <option value="-">Subtrair</option>
-          <option value="*">Multiplicar</option>
-          <option value="/">Dividir</option>
+          {opcoesOperacao}
         </select>
       </div>
       <button onClick={calcular}>Calcular</button>
